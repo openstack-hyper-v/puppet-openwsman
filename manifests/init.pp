@@ -29,13 +29,25 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Peter J. Pouliot <peter@pouliot.net>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Peter J. Pouliot <peter@pouliot.net>, unless otherwise noted.
 #
-class openwsman {
+class openwsman (
+    $openwsman_client = $openwsman::params::openwsman_client,
+    $openwsman_server = $openwsman::params::openwsman_server,
+) inherits openwsman::params {
+validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian and Red Hat based systems.')
+
+  package { $openwsman_client:
+    ensure => latest,
+  }
+  package { $openwsman_server:
+    ensure => latest,
+  }
+
 
 
 }

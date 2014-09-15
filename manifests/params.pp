@@ -13,14 +13,27 @@
 #
 class openwsman::params {
 
+  $version        = undef
+  $ensure         = present
+  $service_state  = running
+  $service_enable = true
+
   case $::osfamily {
-    'Ubuntu':{
-      $wsman_client = 'wsmancli'
-      $wsman_server = 'openwsman'
+    'Debian':{
+      case $::operatingsystem {
+        'Ubuntu':{
+          $wsman_client = 'wsmancli'
+          $wsman_server = 'openwsman'
+        }
+      }
     }
-    'Centos':{
-      $wsman_client = 'openwsman-client'
-      $wsman_server = 'openwsman-server'
+    'Redhat':{
+      case $::operatingsystem {
+        'Centos':{
+          $wsman_client = 'openwsman-client'
+          $wsman_server = 'openwsman-server'
+        }
+      }
     }
     default:{
       warning("${::osfamily} is unsupported by module: ${::modulename}")
