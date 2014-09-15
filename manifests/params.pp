@@ -1,6 +1,6 @@
 # == Class: openwsman::params
 #
-# OpenWSMAN Parameters
+# OpenWSMAN Default Parameters
 #
 #
 # === Authors
@@ -13,10 +13,24 @@
 #
 class openwsman::params {
 
-  $version        = undef
-  $ensure         = present
-  $service_state  = running
-  $service_enable = true
+  $version                  = undef
+  $ensure                   = present
+  $service_state            = running
+  $service_enable           = true
+  $wsman_http_port          = '5985'
+  $wsman_use_ipv4           = 'yes'
+  $wsman_use_ipv6           = 'yes'
+  $wsman_ssl_cert_file      = '/etc/openwsman/servercert.pem'
+  $wsman_ssl_key_file       = '/etc/openwsman/serverkey.pem'
+
+  $cim_default_namespace    = 'root/cimv2'
+  $cimom_host               = 'localhost'
+  $cimom_port               = '5989'
+  $cimom_use_ssl            = 'yes'
+  $cimom_verify_ssl_cert    = 'yes'
+  $cimom_ssl_trust_store    = '/etc/ssl/certs'
+
+
 
   case $::osfamily {
     'Debian':{

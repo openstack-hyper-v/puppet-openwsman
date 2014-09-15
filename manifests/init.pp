@@ -41,13 +41,33 @@ class openwsman (
 ) inherits openwsman::params {
 validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian and Red Hat based systems.')
 
-  package { $openwsman_client:
+  package { $wsman_client:
     ensure => latest,
   }
-  package { $openwsman_server:
+  package { $wsman_server:
     ensure => latest,
   }
 
+  file {'/etc/pam.d/openwsman':
+    ensure  => present,
+    require => Package[$wsman_server],
+  }
 
+  file {'/etc/openwsman':
+    ensure  => directory,
+    require => Package[$wsman_client],
+  }
+  file {'/etc/openwsman/openwsman_client.conf':
+    ensure  => present,
+    require => Package[$wsman_client],
+  }
+  file {'/etc/openwsman/openwsman.conf':
+    ensure  => present,
+    require => Package[$wsman_client],
+  }
+  file {'/etc/openwsman/ssleay.cnf':
+    ensure  => present,
+    require => Package[$wsman_client],
+  }
 
 }
