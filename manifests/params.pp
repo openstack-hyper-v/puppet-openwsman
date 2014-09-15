@@ -22,6 +22,7 @@ class openwsman::params {
   $wsman_use_ipv6           = 'yes'
   $wsman_ssl_cert_file      = '/etc/openwsman/servercert.pem'
   $wsman_ssl_key_file       = '/etc/openwsman/serverkey.pem'
+  $wsman_ssleay_bitsize     = '1024'
 
   $cim_default_namespace    = 'root/cimv2'
   $cimom_host               = 'localhost'

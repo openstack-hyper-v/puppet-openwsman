@@ -59,14 +59,17 @@ validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian 
   }
   file {'/etc/openwsman/openwsman_client.conf':
     ensure  => present,
+    content => template('openwsman/openwsman_client.conf.erb'),
     require => Package[$wsman_client],
   }
   file {'/etc/openwsman/openwsman.conf':
     ensure  => present,
+    content => template('openwsman/openwsman.conf.erb'),
     require => Package[$wsman_client],
   }
   file {'/etc/openwsman/ssleay.cnf':
     ensure  => present,
+    content => template('openwsman/ssleay.cnf.erb'),
     require => Package[$wsman_client],
   }
 

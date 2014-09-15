@@ -1,0 +1,16 @@
+##################################
+#
+# Client side settings
+# This file is mangaed by Puppet
+# Puppet Module: <%=@modulename %>
+#
+##################################
+[client]
+port = <%= @wsman_http_port %>
+agent = openwsman 2.2.0
+
+# file for certificate revocation list (CRL)
+# (rfc3280, used by CURL library)
+
+# crlfile =
+
