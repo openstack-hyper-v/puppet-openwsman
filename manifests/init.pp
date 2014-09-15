@@ -24,7 +24,7 @@
 # === Examples
 #
 #  class { 'openwsman':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    pywinrm => 'true',
 #  }
 #
 # === Authors
