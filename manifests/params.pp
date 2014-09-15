@@ -22,8 +22,18 @@ class openwsman::params {
     'Debian':{
       case $::operatingsystem {
         'Ubuntu':{
-          $wsman_client = 'wsmancli'
-          $wsman_server = 'openwsman'
+          $wsman_client                   = 'wsmancli'
+
+          $wsman_client_required_packages = ['libcurl3',
+                                             'libwsman-client2',
+                                             'libwsman-curl-client-transport1',
+                                             'libwsman1']
+
+          $wsman_server                   = 'openwsman'
+
+          $wsman_server_required_packages = ['libcimcclient0',
+                                             'libwsman-server1',
+                                             $wsman_client_required_packages ]
         }
       }
     }
