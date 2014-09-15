@@ -63,6 +63,18 @@ class openwsman (
       provider => pip,
       require => Package['python-pip'],
     }
+    exec{'get-wsmancmd.py':
+      command => '/usr/bin/wget -c https://raw.githubusercontent.com/cloudbase/unattended-setup-scripts/master/wsmancmd.py',
+      cwd     => '/usr/local/bin',
+    }
+
+    file {'/usr/local/bin/wsmancmd.py':
+      ensure  => file,
+      mode    => '0755',
+      owner   => 'root',
+      group   => 'root',
+      require => Exec['get-wsmancmd.py'],
+    } 
   }
 
   file {'/etc/pam.d/openwsman':
