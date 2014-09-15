@@ -23,7 +23,7 @@ class openwsman::params {
   $wsman_ssl_cert_file      = '/etc/openwsman/servercert.pem'
   $wsman_ssl_key_file       = '/etc/openwsman/serverkey.pem'
   $wsman_ssleay_bitsize     = '1024'
-
+  $pywinrm                  = undef
   $cim_default_namespace    = 'root/cimv2'
   $cimom_host               = 'localhost'
   $cimom_port               = '5989'
@@ -49,6 +49,7 @@ class openwsman::params {
           $wsman_server_required_packages = ['libcimcclient0',
                                              'libwsman-server1',
                                              $wsman_client_required_packages ]
+          $wsman_python                   = 'python-openwsman'
         }
       }
     }
@@ -57,6 +58,7 @@ class openwsman::params {
         'Centos':{
           $wsman_client = 'openwsman-client'
           $wsman_server = 'openwsman-server'
+          $wsman_python = 'openwsman-python'
         }
       }
     }
