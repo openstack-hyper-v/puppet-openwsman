@@ -36,23 +36,22 @@
 # Copyright 2014 Peter J. Pouliot <peter@pouliot.net>, unless otherwise noted.
 #
 class openwsman (
-    $openwsman_client = $openwsman::params::openwsman_client,
-    $openwsman_server = $openwsman::params::openwsman_server,
-    $pywinrm          = $openwsman::params::pywinrm,
-) inherits openwsman::params {
+  $openwsman_client = $openwsman::params::openwsman_client,
+  $openwsman_server = $openwsman::params::openwsman_server,
+  $pywinrm          = $openwsman::params::pywinrm,
+)inherits openwsman::params {
   validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian and Red Hat based systems.')
+  package { $::wsman_client:
+    ensure => latest,
+  }
+  package { $::wsman_server:
+    ensure => latest,
+  }
+  package { $::wsman_python:
+    ensure => latest,
+  }
 
-  package { $wsman_client:
-    ensure => latest,
-  }
-  package { $wsman_server:
-    ensure => latest,
-  }
-  package { $wsman_python:
-    ensure => latest,
-  }
-
-  if $pywinrm == 'true' {
+  if $::pywinrm == true {
     package {'python-pip':
       ensure => latest,
     }
@@ -61,7 +60,7 @@ class openwsman (
       ensure   => latest,
       source   => 'http://github.com/diyan/pywinrm/archive/master.zip',
       provider => pip,
-      require => Package['python-pip'],
+      require  => Package['python-pip'],
     }
     exec{'get-wsmancmd.py':
       command => '/usr/bin/wget -c https://raw.githubusercontent.com/cloudbase/unattended-setup-scripts/master/wsmancmd.py',
@@ -74,32 +73,32 @@ class openwsman (
       owner   => 'root',
       group   => 'root',
       require => Exec['get-wsmancmd.py'],
-    } 
+    }
   }
 
   file {'/etc/pam.d/openwsman':
     ensure  => present,
-    require => Package[$wsman_server],
+    require => Package[$::wsman_server],
   }
 
   file {'/etc/openwsman':
     ensure  => directory,
-    require => Package[$wsman_client],
+    require => Package[$::wsman_client],
   }
   file {'/etc/openwsman/openwsman_client.conf':
     ensure  => present,
     content => template('openwsman/openwsman_client.conf.erb'),
-    require => Package[$wsman_client],
+    require => Package[$::wsman_client],
   }
   file {'/etc/openwsman/openwsman.conf':
     ensure  => present,
     content => template('openwsman/openwsman.conf.erb'),
-    require => Package[$wsman_client],
+    require => Package[$::wsman_client],
   }
   file {'/etc/openwsman/ssleay.cnf':
     ensure  => present,
     content => template('openwsman/ssleay.cnf.erb'),
-    require => Package[$wsman_client],
+    require => Package[$::wsman_client],
   }
 
 }
