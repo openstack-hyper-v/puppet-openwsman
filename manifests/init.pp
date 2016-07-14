@@ -78,27 +78,27 @@ class openwsman (
 
   file {'/etc/pam.d/openwsman':
     ensure  => present,
-    require => Package[$::wsman_server],
+    require => Package[$openwsman::wsman_server],
   }
 
   file {'/etc/openwsman':
     ensure  => directory,
-    require => Package[$::wsman_client],
+    require => Package[$openwsman::wsman_client],
   }
   file {'/etc/openwsman/openwsman_client.conf':
     ensure  => present,
     content => template('openwsman/openwsman_client.conf.erb'),
-    require => Package[$::wsman_client],
+    require => Package[$openwsman::wsman_client],
   }
   file {'/etc/openwsman/openwsman.conf':
     ensure  => present,
     content => template('openwsman/openwsman.conf.erb'),
-    require => Package[$::wsman_client],
+    require => Package[$openwsman::wsman_client],
   }
   file {'/etc/openwsman/ssleay.cnf':
     ensure  => present,
     content => template('openwsman/ssleay.cnf.erb'),
-    require => Package[$::wsman_client],
+    require => Package[$openwsman::wsman_client],
   }
 
 }
