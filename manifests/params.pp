@@ -35,26 +35,16 @@ class openwsman::params {
 
   case $::osfamily {
     'Debian':{
-      case $::operatingsystem {
-        'Ubuntu':{
-          $wsman_client = 'wsmancli'
-          $wsman_client_required_packages = [ 'libcurl3', 'libwsman-client2', 'libwsman-curl-client-transport1', 'libwsman1' ]
-          $wsman_server = 'openwsman'
-          $wsman_server_required_packages = [ 'libcimcclient0','libwsman-server1', $wsman_client_required_packages ]
-          $wsman_python = 'python-openwsman'
-        }
-        default:{ warning("${operatingsystem} is not a supported debian platform by module puppet-openwsman!")}
-      }
+      $wsman_client = 'wsmancli'
+      $wsman_client_required_packages = [ 'libcurl3', 'libwsman-client2', 'libwsman-curl-client-transport1', 'libwsman1' ]
+      $wsman_server = 'openwsman'
+      $wsman_server_required_packages = [ 'libcimcclient0','libwsman-server1', $wsman_client_required_packages ]
+      $wsman_python = 'python-openwsman'
     }
     'Redhat':{
-      case $::operatingsystem {
-        'Centos':{
-          $wsman_client = 'openwsman-client'
-          $wsman_server = 'openwsman-server'
-          $wsman_python = 'openwsman-python'
-        }
-        default:{ warning("${operatingsystem} is not a supported Redhat platform by module puppet-openwsman!") }
-      }
+      $wsman_client = 'openwsman-client'
+      $wsman_server = 'openwsman-server'
+      $wsman_python = 'openwsman-python'
     }
     default:{ warning("${osfamily} is unsupported by module puppet-openwsman") }
   }
