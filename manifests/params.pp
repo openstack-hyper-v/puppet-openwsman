@@ -57,7 +57,7 @@ class openwsman::params {
         }
         default:{ warning("${::operatingsystem} is not a supported Redhat platform by module ${::modulename}") }
       }
+      default:{ warning("${::operatingsystem} is unsupported by module: ${::modulename}") }
     }
-    default:{ warning("${::operatingsystem} is unsupported by module: ${::modulename}") }
   }
 }
