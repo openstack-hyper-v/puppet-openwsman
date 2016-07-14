@@ -60,5 +60,4 @@ class openwsman::params {
     }
     default:{ warning("${::operatingsystem} is unsupported by module: ${::modulename}") }
   }
-  default:{ warning("${::osfamily} is unsupported by module: ${::modulename}") }
 }
