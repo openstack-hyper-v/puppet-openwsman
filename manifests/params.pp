@@ -43,7 +43,7 @@ class openwsman::params {
           $wsman_server_required_packages = [ 'libcimcclient0','libwsman-server1', $wsman_client_required_packages ]
           $wsman_python = 'python-openwsman'
         }
-        default:{ warning("${::operatingsystem} is not a supported debian platform by module puppet-openwsman!")}
+        default:{ warning("${operatingsystem} is not a supported debian platform by module puppet-openwsman!")}
       }
     }
     'Redhat':{
@@ -53,9 +53,9 @@ class openwsman::params {
           $wsman_server = 'openwsman-server'
           $wsman_python = 'openwsman-python'
         }
-        default:{ warning("${::operatingsystem} is not a supported Redhat platform by module puppet-openwsman!") }
+        default:{ warning("${operatingsystem} is not a supported Redhat platform by module puppet-openwsman!") }
       }
     }
-    default:{ warning("${::operatingsystem} is unsupported by module: ${::modulename}") }
+    default:{ warning("${osfamily} is unsupported by module puppet-openwsman") }
   }
 }
