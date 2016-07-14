@@ -1,0 +1,7 @@
+FROM msopenstack/sentinel-ubuntu:latest
+ 
+RUN apt-get update -y
+RUN apt-get install software-properties-common -y
+RUN puppet module install puppetlabs-stdlib
+RUN git clone https://github.com/openstack-hyper-v/puppet-openwsman /etc/puppet/modules/openwsman
+RUN puppet apply --debug --trace --verbose --modulepath=/etc/puppet/modules /etc/puppet/modules/openwsman/tests/init.pp
