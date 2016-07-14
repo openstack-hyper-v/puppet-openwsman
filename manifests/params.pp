@@ -43,8 +43,11 @@ class openwsman::params {
           $wsman_server_required_packages = [ 'libcimcclient0','libwsman-server1', $wsman_client_required_packages ]
           $wsman_python = 'python-openwsman'
         }
-        default:{ warning("${::operatingsystem} is not a supported debian platform by module ${::modulename}") }
+        default:{
+          warning("${::operatingsystem} is not a supported debian platform by module ${::modulename}")
+        }
       }
+    }
     'Redhat':{
       case $::operatingsystem {
         'Centos':{
