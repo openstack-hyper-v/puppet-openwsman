@@ -41,17 +41,17 @@ class openwsman (
   $pywinrm          = $openwsman::params::pywinrm,
 )inherits openwsman::params {
   validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian and Red Hat based systems.')
-  package { $::wsman_client:
+  package { $openwsman::wsman_client:
     ensure => latest,
   }
-  package { $::wsman_server:
+  package { $openwsman::wsman_server:
     ensure => latest,
   }
-  package { $::wsman_python:
+  package { $openwsman::wsman_python:
     ensure => latest,
   }
 
-  if $::pywinrm == true {
+  if $openwsman::pywinrm == true {
     package {'python-pip':
       ensure => latest,
     }
